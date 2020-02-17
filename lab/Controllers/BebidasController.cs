@@ -11,5 +11,17 @@ namespace lab3.Controllers
     [ApiController]
     public class BebidasController : ControllerBase
     {
+         [HttpPost]
+        [Route("api/insertar")]
+        public  ActionResult Insertar([FromBody] Bebida Soda)
+        {
+            if (ModelState.IsValid)
+            {
+                Estructura.ArbolB_Estrella_.Instance.Add(Soda.Nombre, Soda.Sabor, Soda.Volumen, Soda.Precio, Soda.Casa_Productora);
+                return Ok();
+            }
+            return BadRequest(ModelState);
+        }
+
     }
 }
