@@ -11,8 +11,6 @@ namespace lab3.Controllers
     [ApiController]
     public class BebidasController : ControllerBase
     {
-
-
          [HttpPost]
         [Route("api/insertar")]
         public  ActionResult Insertar([FromBody] Bebida Soda)
