@@ -28,7 +28,7 @@ namespace lab3
 
         public bool Maximo => values.Count == grado - 1;
 
-        public bool MaximoRaiz => values.Count == ((4 / 3) * (grado - 1));
+        public bool MaximoRaiz => values.Count == (4 * (grado - 1))/ 3;
 
 
 
