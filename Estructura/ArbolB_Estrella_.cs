@@ -22,10 +22,11 @@ namespace lab3.Estructura
         public int Proxima { get; set; }
         static int valor_raiz = ((4 * (grado - 1)) / 3);
         
-
+        #region Extras
+        #endregion
         public void Add(string N, string S, int V, double P, string C_P)
         {
-            var dato = new Bebida()
+            var dato = new Bebidas()
             {
                 Nombre = N,
                 Sabor = S,
@@ -38,6 +39,7 @@ namespace lab3.Estructura
             {
                 raiz = new Nodo();
                 raiz.values.add(dato);
+                raiz.id = ID;
             }
             else
             {
@@ -52,12 +54,16 @@ namespace lab3.Estructura
                     }
                     num++;
                 }
-                if (true)//full
-                { 
-                  
+                if (num == valor_raiz)//full
+                {
+                    raiz.values.add(dato);
+                    int mitad = raiz.values.lenght;
+                    for (int i = 0; i < mitad; i++)
+                    {
+
+                    }
                 }
             }
         }
-
     }
 }

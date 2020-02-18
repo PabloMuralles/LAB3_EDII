@@ -10,8 +10,7 @@ namespace lab3
         public int id { get; set; }
         public int padre { get; set; }
         public list<int> hijos { get; set; }
-        public list<Bebida> values { get; set; }
+        public list<Bebidas> values { get; set; }
         
-        }
     }
 }
