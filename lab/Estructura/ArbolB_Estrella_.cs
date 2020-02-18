@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace lab3.Estructura
 {
@@ -25,7 +26,8 @@ namespace lab3.Estructura
 
         public void Add(string N, string S, int V, double P, string C_P)
         {
-            var dato = new Bebida()
+            
+            var dato = new Bebidas()
             {
                 Nombre = N,
                 Sabor = S,
