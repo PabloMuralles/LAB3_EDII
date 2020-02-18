@@ -11,18 +11,26 @@ namespace lab3
         public int padre { get; set; }
         public List<int> hijos { get; set; }
         public List<Bebidas> values { get; set; }
-
         public int grado { get; set; }
+        public Nodo(int Grado)
+        {
+            hijos = new List<int>();
+            values = new List<Bebidas>();
+            grado = Grado;
+            
+             
+        }
 
+        
         public bool EsHoja => hijos.Count == 0;
 
-        public bool Minimo => values.Count == ((2*grado)-1)/3;
+        public bool Minimo => values.Count == ((2 * grado) - 1) / 3;
 
         public bool Maximo => values.Count == grado - 1;
 
         public bool MaximoRaiz => values.Count == ((4 / 3) * (grado - 1));
 
-        
-        }
+
+
     }
 }

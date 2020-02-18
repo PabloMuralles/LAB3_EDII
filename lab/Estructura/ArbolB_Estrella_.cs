@@ -34,7 +34,7 @@ namespace lab3.Estructura
             ID = 1;
             if (raiz == null)
             {
-                raiz = new Nodo();
+                raiz = new Nodo(7);
                 raiz.values.Add(dato);
             }
             else
@@ -47,7 +47,7 @@ namespace lab3.Estructura
                 else
                 {
                     raiz.values.Add(dato);
-                    raiz.values.Sort();
+                    raiz.values = raiz.values.OrderBy(x => x.Nombre).ToList();
                 }
             }
         }
