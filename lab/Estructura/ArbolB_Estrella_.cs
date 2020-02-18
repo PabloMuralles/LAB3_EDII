@@ -43,7 +43,8 @@ namespace lab3.Estructura
                 {
                     // si esta lleno tira un true y se mete a este if para dividir la raiz 
                     // si ya esta lleno dividir la raiz
-                    int mitad = raiz.values.Count;
+                    int mitad = raiz.values.Count / 2;
+                    Subir_Elemento(mitad, raiz.values);
                 }
                 else
                 { 
@@ -52,6 +53,22 @@ namespace lab3.Estructura
                     raiz.values = raiz.values.OrderBy(x => x.Nombre).ToList();
                 }
             }
+        }
+        public Bebidas Subir_Elemento(int mitad, List<Bebidas> nodo)
+        {
+            int num = 0;
+            var nuevo_elemento = new Bebidas();
+            foreach (var item in nodo)
+            {
+                if (num == mitad)
+                {
+                    nuevo_elemento = item;
+
+                    break;
+                }
+                num++;
+            }
+            return nuevo_elemento;
         }
 
     }
