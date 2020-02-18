@@ -41,11 +41,13 @@ namespace lab3.Estructura
             {
                 if (raiz.MaximoRaiz)//full
                 {
+                    // si esta lleno tira un true y se mete a este if para dividir la raiz 
                     // si ya esta lleno dividir la raiz
                     int mitad = raiz.values.Count;
                 }
                 else
-                {
+                { 
+                    // sino esta al maximo tira un false que se mete al else para nada mas insertarlo
                     raiz.values.Add(dato);
                     raiz.values = raiz.values.OrderBy(x => x.Nombre).ToList();
                 }
