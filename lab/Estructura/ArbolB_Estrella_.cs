@@ -20,9 +20,7 @@ namespace lab3.Estructura
         public Nodo raiz = null;
         public int ID { get; set; }
         public int Proxima { get; set; }
-        static int valor_raiz = ((4 * (grado - 1)) / 3);
-        
-
+        static int valor_raiz = ((4 * (grado - 1)) / 3);       
         public void Add(string N, string S, int V, double P, string C_P)
         {
             var dato = new Bebida()
@@ -52,9 +50,9 @@ namespace lab3.Estructura
                     }
                     num++;
                 }
-                if (true)//full
-                { 
-                  
+                if (num == valor_raiz)//full
+                {
+                    int mitad = raiz.values.lenght;
                 }
             }
         }
