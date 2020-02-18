@@ -7,17 +7,16 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace lab3.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
+  
     public class BebidasController : ControllerBase
     {
-         [HttpPost]
+        [HttpPost]
         [Route("api/insertar")]
-        public  ActionResult Insertar([FromBody] Bebida Soda)
+        public  ActionResult Insertar([FromBody] Bebidas Soda)
         {
             if (ModelState.IsValid)
             {
-                Estructura.ArbolB_Estrella_.Instance.Add(Soda.Nombre, Soda.Sabor, Soda.Volumen, Soda.Precio, Soda.Casa_Productora);
+                Estructura.ArbolB_Estrella_.Instance.Insertar(Soda.Nombre, Soda.Sabor, Soda.Volumen, Soda.Precio, Soda.Casa_Productora);
                 return Ok();
             }
             return BadRequest(ModelState);
