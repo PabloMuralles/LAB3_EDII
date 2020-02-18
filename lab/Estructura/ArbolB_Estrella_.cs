@@ -20,10 +20,10 @@ namespace lab3.Estructura
         public Nodo raiz = null;
         public int ID { get; set; }
         public int Proxima { get; set; }
-        static int valor_raiz = ((4 * (grado - 1)) / 3);       
-        public void Add(string N, string S, int V, double P, string C_P)
+        static int valor_raiz = ((4 * (grado - 1)) / 3);
+        public void Insertar(string N, string S, int V, double P, string C_P)
         {
-            var dato = new Bebida()
+            var dato = new Bebidas()
             {
                 Nombre = N,
                 Sabor = S,
@@ -35,24 +35,19 @@ namespace lab3.Estructura
             if (raiz == null)
             {
                 raiz = new Nodo();
-                raiz.values.add(dato);
+                raiz.values.Add(dato);
             }
             else
             {
-                int num = 0;
-                foreach (var espacio in raiz.values)
+                if (raiz.MaximoRaiz)//full
                 {
-                    if (espacio == null && num < valor_raiz)
-                    {
-                    raiz.values.add(dato);
-                    raiz.values.Sort();
-                        break;
-                    }
-                    num++;
+                    // si ya esta lleno dividir la raiz
+                    int mitad = raiz.values.Count;
                 }
-                if (num == valor_raiz)//full
+                else
                 {
-                    int mitad = raiz.values.lenght;
+                    raiz.values.Add(dato);
+                    raiz.values.Sort();
                 }
             }
         }
