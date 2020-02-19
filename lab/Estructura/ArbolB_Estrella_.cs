@@ -21,6 +21,8 @@ namespace lab3.Estructura
         public int ID { get; set; }
         public int Proxima { get; set; }
         static int valor_raiz = ((4 * (grado - 1)) / 3);
+
+ 
         public void Insertar(string N, string S, int V, double P, string C_P)
         {
             var dato = new Bebidas()
@@ -70,6 +72,26 @@ namespace lab3.Estructura
             }
             return nuevo_elemento;
         }
+
+        // metodo para poder limpiar la raiz y asignarle el de en medio
+        public void Limpiar()
+        {
+            raiz = new Nodo(grado);
+        }
+
+        public void InsertarElemento (Nodo NodoActual)
+        {
+            if (NodoActual.EsHoja)
+            {
+              
+            }
+        }
+
+
+
+
+
+
 
     }
 }
