@@ -16,7 +16,7 @@ namespace lab3.Controllers
         {
             if (ModelState.IsValid)
             {
-                Estructura.ArbolB_Estrella_.Instance.Insertar(Soda.Nombre, Soda.Sabor, Soda.Volumen, Soda.Precio, Soda.Casa_Productora);
+                Estructura.ArbolB_Estrella_.Instance.Creacion(Soda.Nombre, Soda.Sabor, Soda.Volumen, Soda.Precio, Soda.Casa_Productora);
                 return Ok();
             }
             return BadRequest(ModelState);
