@@ -22,8 +22,7 @@ namespace lab3.Estructura
         public int Proxima { get; set; }
         static int valor_raiz = ((4 * (grado - 1)) / 3);
 
- 
-        public void Insertar(string N, string S, int V, double P, string C_P)
+        public void Creacion(string N, string S, int V, double P, string C_P)
         {
             var dato = new Bebidas()
             {
@@ -33,11 +32,20 @@ namespace lab3.Estructura
                 Precio = P,
                 Casa_Productora = C_P
             };
+
+            Insertar(dato);
+
+        }
+
+      
+        public void Insertar(Bebidas DatosInsertar)
+        {
+           
             ID = 1;
             if (raiz == null)
             {
-                raiz = new Nodo(7);
-                raiz.values.Add(dato);
+                raiz = new Nodo(5);
+                raiz.values.Add(DatosInsertar);
             }
             else
             {
@@ -51,7 +59,7 @@ namespace lab3.Estructura
                 else
                 { 
                     // sino esta al maximo tira un false que se mete al else para nada mas insertarlo
-                    raiz.values.Add(dato);
+                    raiz.values.Add(DatosInsertar);
                     raiz.values = raiz.values.OrderBy(x => x.Nombre).ToList();
                 }
             }
