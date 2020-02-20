@@ -7,28 +7,42 @@ namespace lab3
 {
     public class Nodo
     {
+        
         public int id { get; set; }
-        public int padre { get; set; }
-        public List<int> hijos { get; set; }
+        public Nodo padre { get; set; }
+        public List<Nodo> hijos { get; set; }
         public List<Bebidas> values { get; set; }
-        public int grado { get; set; }
-        public Nodo(int Grado)
+        public static int grado = 5;
+        public Nodo()
         {
-            hijos = new List<int>();
+            hijos = new List<Nodo>();
             values = new List<Bebidas>();
-            grado = Grado;
+           
             
              
         }
 
-        
+       
+        public int MAX()
+        {
+            int max = (4*(grado-1)/3);
+            if (max%2!=0)
+            {
+                max = max + 1;
+            }
+            return max;
+        }
+
         public bool EsHoja => hijos.Count == 0;
 
         public bool Minimo => values.Count == ((2 * grado) - 1) / 3;
 
         public bool Maximo => values.Count == grado - 1;
 
-        public bool MaximoRaiz => values.Count == (4 * (grado - 1))/ 3;
+       
+        public bool MaximoRaiz => values.Count == MAX();
+
+
 
 
 
