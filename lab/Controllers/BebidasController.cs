@@ -15,7 +15,7 @@ namespace lab3.Controllers
     {
         int order = 7;
         // Tree for the meds
-        private static BTree<Bebidas, string> tree = new BTree<Bebidas, string>(7);
+        private static BTree<Bebidas, string> tree = new BTree<Bebidas, string>(5);
 
         [HttpPost]
         [Route("api/insertar")]
