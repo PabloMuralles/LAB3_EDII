@@ -49,6 +49,7 @@ namespace lab3.Estructura
             }
             else
             {
+                
                 if (raiz.MaximoRaiz)//full
                 {
                     // si esta lleno tira un true y se mete a este if para dividir la raiz 
@@ -57,13 +58,24 @@ namespace lab3.Estructura
                     var NuevoElmento =Subir_Elemento(mitad, raiz.values);
                     raiz.values.Add(DatosInsertar);
                     Primeradivision(raiz, 0, NuevoElmento);
-                    //DividirNodo(raiz);
+                    
                 }
-                else
-                { 
-                    // sino esta al maximo tira un false que se mete al else para nada mas insertarlo
+                if (raiz.EsHoja)
+                {
                     raiz.values.Add(DatosInsertar);
                     raiz.values = Ordenar(raiz.values);
+                }
+                else
+                {
+                    if (raiz.values[raiz.values.Count].Nombre.CompareTo(DatosInsertar.Nombre) > 0)
+                    {
+                        raiz.hijos[1].values.Add(DatosInsertar);
+                    }
+                    else
+                    {
+                        raiz.hijos[0].values.Add(DatosInsertar);
+                    }
+                   
                 }
             }
         }
@@ -78,6 +90,7 @@ namespace lab3.Estructura
             PrimerNodo.hijos[num + 1].values = Derecho;
             PrimerNodo.values.Clear();
             PrimerNodo.values.Add(elementoRaiz);
+            
         }
         public List<Bebidas> Der(int mitad, List<Bebidas> nodo)
         {
