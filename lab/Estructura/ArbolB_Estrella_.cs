@@ -53,9 +53,11 @@ namespace lab3.Estructura
                 {
                     // si esta lleno tira un true y se mete a este if para dividir la raiz 
                     // si ya esta lleno dividir la raiz
-                    Primeradivision(raiz);
+                    int mitad = raiz.values.Count / 2;
+                    var NuevoElmento =Subir_Elemento(mitad, raiz.values);
+                    raiz.values.Add(DatosInsertar);
+                    Primeradivision(raiz, 0, NuevoElmento);
                     //DividirNodo(raiz);
-                     //var NuevoElmento =Subir_Elemento(mitad, raiz.values);
                 }
                 else
                 { 
@@ -65,22 +67,46 @@ namespace lab3.Estructura
                 }
             }
         }
-        public void Primeradivision(Nodo PrimerNodo)
+        public void Primeradivision(Nodo PrimerNodo, int num, Bebidas elementoRaiz)
         {
             int mitad = PrimerNodo.values.Count / 2;
-            for (int i = 0; i < grado + 1; i++)
+            PrimerNodo.hijos[num] = new Nodo();
+            var Izquierdo = Izq(mitad, PrimerNodo.values);
+            PrimerNodo.hijos[num].values = Izquierdo;
+            PrimerNodo.hijos[num + 1] = new Nodo();
+            var Derecho = Der(mitad, PrimerNodo.values);
+            PrimerNodo.hijos[num + 1].values = Derecho;
+            PrimerNodo.values.Clear();
+            PrimerNodo.values.Add(elementoRaiz);
+        }
+        public List<Bebidas> Der(int mitad, List<Bebidas> nodo)
+        {
+            int num = nodo.Count;
+            var nuevo_elemento = new List<Bebidas>();
+            foreach (var item in nodo)
             {
-              
-                for (int j = 0; j < mitad; j++)
+                if (num < mitad)
                 {
-                     PrimerNodo.hijos[i].values[i] = new Bebidas();
-                    PrimerNodo.hijos[i].values.Add(PrimerNodo.values[j]);
+                    nuevo_elemento.Add(item);
                 }
-                for (int k = PrimerNodo.hijos[i].values.Count -1 ; i < mitad ; k--)
+                num--;
+            }
+            return nuevo_elemento;
+        }
+        public List<Bebidas> Izq(int mitad, List<Bebidas> nodo)
+        {
+            int num = 0;
+            var nuevo_elemento = new List<Bebidas>();
+
+            foreach (var item in nodo)
+            {
+                if (num < mitad)
                 {
-                    PrimerNodo.hijos[i + 1].values.Add(PrimerNodo.values[k]);
-                }               
-            }            
+                    nuevo_elemento.Add(item);
+                }
+                num++;
+            }       
+            return nuevo_elemento;
         }
         public void DividirNodo(Nodo NodoSeparar)
         {
@@ -96,16 +122,16 @@ namespace lab3.Estructura
             TempIzquierdo.padre = NodoSeparar.padre;
             TempPadre.values.Add(Subir_Elemento(mitad,NodoSeparar.values));
 
-            if (NodoSeparar.hijos.Count!=0)
+            if (NodoSeparar.hijos.Length!=0)
             {
-                for (int i = 0; i < NodoSeparar.hijos.Count/2; i++)
+                for (int i = 0; i < NodoSeparar.hijos.Length/2; i++)
                 {
-                    TempIzquierdo.hijos.Add(NodoSeparar.hijos[i]);
+                    TempIzquierdo.hijos[i] = (NodoSeparar.hijos[i]);
 
                 }
-                for (int i = NodoSeparar.hijos.Count / 2; i < NodoSeparar.hijos.Count; i++)
+                for (int i = NodoSeparar.hijos.Length / 2; i < NodoSeparar.hijos.Length; i++)
                 {
-                    TempDerecho.hijos.Add(NodoSeparar.hijos[i]);
+                    TempDerecho.hijos[i] = (NodoSeparar.hijos[i]);
 
                 }
             }
