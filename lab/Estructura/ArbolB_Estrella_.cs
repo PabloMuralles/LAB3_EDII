@@ -21,6 +21,8 @@ namespace lab3.Estructura
         public int ID { get; set; }
         public int Proxima { get; set; }
         static int valor_raiz = ((4 * (grado - 1)) / 3);
+        public bool LiberarHoja = true;
+        public int validar = 0;
 
         public void Creacion(string N, string S, int V, double P, string C_P)
         {
@@ -35,9 +37,7 @@ namespace lab3.Estructura
 
             Insertar(dato);
 
-        }
-
-      
+        }      
         public void Insertar(Bebidas DatosInsertar)
         {
            
@@ -49,7 +49,7 @@ namespace lab3.Estructura
             }
             else
             {
-                
+                int num = 0;
                 if (raiz.MaximoRaiz)//full
                 {
                     // si esta lleno tira un true y se mete a este if para dividir la raiz 
@@ -57,25 +57,52 @@ namespace lab3.Estructura
                     int mitad = raiz.values.Count / 2;
                     var NuevoElmento =Subir_Elemento(mitad, raiz.values);
                     raiz.values.Add(DatosInsertar);
-                    Primeradivision(raiz, 0, NuevoElmento);
-                    
+                    Primeradivision(raiz, num, NuevoElmento);
+                     
                 }
-                if (raiz.EsHoja)
+                if (LiberarHoja)
                 {
                     raiz.values.Add(DatosInsertar);
                     raiz.values = Ordenar(raiz.values);
                 }
-                else
+                if (validar == 1)
                 {
-                    if (raiz.values[raiz.values.Count].Nombre.CompareTo(DatosInsertar.Nombre) > 0)
+                    if (raiz.values[raiz.values.Count - 1].Nombre.CompareTo(DatosInsertar.Nombre) < 0)
                     {
-                        raiz.hijos[1].values.Add(DatosInsertar);
+                        if (raiz.hijos[num +1].values.Count < grado -1)
+                        {
+                        raiz.hijos[num+1].values.Add(DatosInsertar);
+                        }
+                        else
+                        {
+                            int busqueda = 0;
+                            foreach (var item in raiz.hijos)
+                            {
+                                if (raiz.hijos[busqueda].values.Count <  grado -1)
+                                {
+                                    raiz.hijos[num + 1].values.Add(DatosInsertar);
+                                    var salida = raiz.values[0];
+                                    raiz.values.RemoveAt(0);
+                                    raiz.hijos[num].values.Add(salida);
+                                    raiz.values.Add(raiz.hijos[num + 1].values[0]);
+                                    raiz.hijos[num + 1].values.RemoveAt(0);
+                                    break;
+                                }
+                                busqueda++;
+                            }
+                        }
+
                     }
                     else
                     {
-                        raiz.hijos[0].values.Add(DatosInsertar);
+                        /// si es a la izaquierda
+                        raiz.hijos[num].values.Add(DatosInsertar);
                     }
                    
+                }
+                if (LiberarHoja == false)
+                {
+                    validar =  1;
                 }
             }
         }
@@ -90,7 +117,7 @@ namespace lab3.Estructura
             PrimerNodo.hijos[num + 1].values = Derecho;
             PrimerNodo.values.Clear();
             PrimerNodo.values.Add(elementoRaiz);
-            
+            LiberarHoja = false;
         }
         public List<Bebidas> Der(int mitad, List<Bebidas> nodo)
         {
@@ -98,7 +125,7 @@ namespace lab3.Estructura
             var nuevo_elemento = new List<Bebidas>();
             foreach (var item in nodo)
             {
-                if (num < mitad)
+                if (num < mitad+1)
                 {
                     nuevo_elemento.Add(item);
                 }
@@ -113,7 +140,7 @@ namespace lab3.Estructura
 
             foreach (var item in nodo)
             {
-                if (num < mitad)
+                if (num < mitad )
                 {
                     nuevo_elemento.Add(item);
                 }

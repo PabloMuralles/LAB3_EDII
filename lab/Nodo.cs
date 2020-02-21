@@ -31,7 +31,7 @@ namespace lab3
             return max;
         }
 
-        public bool EsHoja => hijos.Length == 0;
+        public bool EsHoja => hijos == null;
 
         public bool Minimo => values.Count == ((2 * grado) - 1) / 3;
 
