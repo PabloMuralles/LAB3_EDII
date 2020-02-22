@@ -7,6 +7,7 @@ namespace lab3.Estructura
 {
     public class ArbolB_Estrella_
     {
+        #region ARBOL
         private static ArbolB_Estrella_ _instance = null;
         public static ArbolB_Estrella_ Instance
         {
@@ -253,5 +254,86 @@ namespace lab3.Estructura
               
             }
         }
+        #endregion
+
+
+        #region Recorido
+
+        public List<Bebidas> Registros = new List<Bebidas>();
+        public void RetornoInformacion(Nodo RaizResgistro)
+        {
+            if (RaizResgistro.hijos[0] == null)
+            {
+                foreach (var item in RaizResgistro.values)
+                {
+                    if (item != null)
+                    {
+                        Registros.Add(item);
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                for (int i = 0; i < grado; i++)
+                {
+
+
+                    if (RaizResgistro.hijos[i] != null)
+                    {
+                        RetornoInformacion(RaizResgistro.hijos[i]);
+
+                        if (i != (grado - 1))
+                        {
+                            if (RaizResgistro.values[i] != null)
+                            {
+
+                                Registros.Add(RaizResgistro.values[i]);
+
+                            }
+                        }
+
+
+
+                    }
+                    else
+                    {
+
+
+                        break;
+                    }
+
+                }
+            }
+
+
+        }
+
+        public List<Bebidas> IngresarRetorno()
+        {
+            Registros.Clear();
+
+            RetornoInformacion(raiz);
+
+            return Registros;
+
+
+
+
+
+        }
+        #endregion
+
+        #region Busqueda
+        public Bebidas Buscar(string _nombre)
+        {
+            Bebidas bebida = raiz.Busqueda(_nombre);
+            return bebida;
+        }
+        #endregion
+
     }
 }
