@@ -18,6 +18,7 @@ namespace lab3.Estructura
         }
         public static int grado = 5;
         public Nodo raiz = null;
+        public int numero = 0;
         public int ID { get; set; }
         public int Proxima { get; set; }
         static int valor_raiz = ((4 * (grado - 1)) / 3);
@@ -34,71 +35,94 @@ namespace lab3.Estructura
                 Precio = P,
                 Casa_Productora = C_P
             };
-
-            Insertar(dato);
-
+                       
+            Insertar(dato, numero);                       
         }      
-        public void Insertar(Bebidas DatosInsertar)
+        public void Insertar(Bebidas DatosInsertar, int num)
         {
-           
-            ID = 1;
             if (raiz == null)
             {
                 raiz = new Nodo();
                 raiz.values.Add(DatosInsertar);
             }
             else
-            {
-                int num = 0;
+            { 
                 if (raiz.MaximoRaiz)//full
                 {
-                    // si esta lleno tira un true y se mete a este if para dividir la raiz 
-                    // si ya esta lleno dividir la raiz
                     int mitad = raiz.values.Count / 2;
                     var NuevoElmento =Subir_Elemento(mitad, raiz.values);
                     raiz.values.Add(DatosInsertar);
-                    Primeradivision(raiz, num, NuevoElmento);
-                     
+                    Primeradivision(raiz, num, NuevoElmento);                     
                 }
                 if (LiberarHoja)
                 {
                     raiz.values.Add(DatosInsertar);
                     raiz.values = Ordenar(raiz.values);
                 }
-                if (validar == 1)
+                if (validar == 1) // hijos de la raiz
                 {
-                    if (raiz.values[raiz.values.Count - 1].Nombre.CompareTo(DatosInsertar.Nombre) < 0)
+                    if (raiz.values[raiz.values.Count - 1].Nombre.CompareTo(DatosInsertar.Nombre) < 0) // -1 porque es menor a la raiz
                     {
                         if (raiz.hijos[num +1].values.Count < grado -1)
                         {
                         raiz.hijos[num+1].values.Add(DatosInsertar);
                         }
                         else
-                        {
-                            int busqueda = 0;
-                            foreach (var item in raiz.hijos)
+                        {                            
+                           if (raiz.hijos[num].values.Count <  grado -1 ) /// && raiz.hijos[2] == null
                             {
-                                if (raiz.hijos[busqueda].values.Count <  grado -1)
-                                {
-                                    raiz.hijos[num + 1].values.Add(DatosInsertar);
-                                    var salida = raiz.values[0];
-                                    raiz.values.RemoveAt(0);
-                                    raiz.hijos[num].values.Add(salida);
-                                    raiz.values.Add(raiz.hijos[num + 1].values[0]);
-                                    raiz.hijos[num + 1].values.RemoveAt(0);
-                                    break;
-                                }
-                                busqueda++;
-                            }
+                                raiz.hijos[num + 1].values.Add(DatosInsertar);
+                            var salida = raiz.values[0];
+                            raiz.values.RemoveAt(num);
+                            raiz.hijos[num].values.Add(salida);
+                            raiz.values.Add(raiz.hijos[num + 1].values[0]);
+                            raiz.hijos[num + 1].values.RemoveAt(0);                                   
+                          }
+                            else
+                            {
+                                raiz.hijos[num + 1].values.Add(DatosInsertar);
+                                int mitad = (raiz.hijos[num + 1].values.Count) / 2;
+                                var nuevo_elemento = Subir_Elemento(mitad , raiz.hijos[num+1].values);
+                                raiz.values.Add(nuevo_elemento);
+                                raiz.hijos[num + 2] = new Nodo();
+                                raiz.hijos[num + 2].id = 4;
+                                raiz.hijos[num + 2].padre = raiz;
+                                var derecho = Der(mitad, raiz.hijos[num +1].values);
+                                Ordenar(derecho);
+                                var Izquierdo = Izq(mitad, raiz.hijos[num + 1].values);
+                                Ordenar(Izquierdo);
+                                raiz.hijos[num + 2].values = derecho;
+                                raiz.hijos[num+1].values = Izquierdo;
+                                numero++;
+                            }                                                                                 
                         }
-
                     }
                     else
-                    {
-                        /// si es a la izaquierda
-                        raiz.hijos[num].values.Add(DatosInsertar);
-                    }
-                   
+                    {                        
+                        //if (raiz.hijos[num].values.Count < grado -1)
+                        //{
+                        // raiz.hijos[num].values.Add(DatosInsertar);
+                        //}
+                        //else
+                        //{
+                        //    int busqueda = 0;
+                        //    foreach (var item in raiz.hijos)
+                        //    {
+                        //        if (raiz.hijos[busqueda].values.Count < grado - 1)
+                        //        {
+                        //            raiz.hijos[num].values.Add(DatosInsertar);
+                        //            var salida = raiz.values[0];
+                        //            raiz.values.RemoveAt(0);
+                        //            raiz.hijos[num + 1].values.Add(salida);
+                        //            raiz.values.Add(raiz.hijos[num].values[0]);
+                        //            raiz.hijos[num ].values.RemoveAt(0);
+                        //            break;
+                        //        }
+                        //        busqueda++;
+                        //    }
+                        //}
+                        
+                    }                   
                 }
                 if (LiberarHoja == false)
                 {
@@ -112,7 +136,11 @@ namespace lab3.Estructura
             PrimerNodo.hijos[num] = new Nodo();
             var Izquierdo = Izq(mitad, PrimerNodo.values);
             PrimerNodo.hijos[num].values = Izquierdo;
+            PrimerNodo.hijos[num].id = 2;
+            PrimerNodo.hijos[num].padre = PrimerNodo;
             PrimerNodo.hijos[num + 1] = new Nodo();
+            PrimerNodo.hijos[num + 1].id = 3;
+            PrimerNodo.hijos[num + 1].padre = PrimerNodo;
             var Derecho = Der(mitad, PrimerNodo.values);
             PrimerNodo.hijos[num + 1].values = Derecho;
             PrimerNodo.values.Clear();
@@ -148,47 +176,47 @@ namespace lab3.Estructura
             }       
             return nuevo_elemento;
         }
-        public void DividirNodo(Nodo NodoSeparar)
-        {
-            int mitad = NodoSeparar.values.Count / 2;
-            int DatosMaximos = grado - 1;
-            int CantidadHijos = grado;
+        //public void DividirNodo(Nodo NodoSeparar)
+        //{
+        //    int mitad = NodoSeparar.values.Count / 2;
+        //    int DatosMaximos = grado - 1;
+        //    int CantidadHijos = grado;
 
-            Nodo TempIzquierdo = new Nodo();
-            Nodo TempDerecho = new Nodo();
-            Nodo TempPadre = new Nodo();
+        //    Nodo TempIzquierdo = new Nodo();
+        //    Nodo TempDerecho = new Nodo();
+        //    Nodo TempPadre = new Nodo();
 
-            TempDerecho.padre = NodoSeparar.padre;
-            TempIzquierdo.padre = NodoSeparar.padre;
-            TempPadre.values.Add(Subir_Elemento(mitad,NodoSeparar.values));
+        //    TempDerecho.padre = NodoSeparar.padre;
+        //    TempIzquierdo.padre = NodoSeparar.padre;
+        //    TempPadre.values.Add(Subir_Elemento(mitad,NodoSeparar.values));
 
-            if (NodoSeparar.hijos.Length!=0)
-            {
-                for (int i = 0; i < NodoSeparar.hijos.Length/2; i++)
-                {
-                    TempIzquierdo.hijos[i] = (NodoSeparar.hijos[i]);
+        //    if (NodoSeparar.hijos.Length!=0)
+        //    {
+        //        for (int i = 0; i < NodoSeparar.hijos.Length/2; i++)
+        //        {
+        //            TempIzquierdo.hijos[i] = (NodoSeparar.hijos[i]);
 
-                }
-                for (int i = NodoSeparar.hijos.Length / 2; i < NodoSeparar.hijos.Length; i++)
-                {
-                    TempDerecho.hijos[i] = (NodoSeparar.hijos[i]);
+        //        }
+        //        for (int i = NodoSeparar.hijos.Length / 2; i < NodoSeparar.hijos.Length; i++)
+        //        {
+        //            TempDerecho.hijos[i] = (NodoSeparar.hijos[i]);
 
-                }
-            }
-            for (int i = 0; i < mitad; i++)
-            {
-                TempIzquierdo.values.Add(NodoSeparar.values[i]);
-                TempIzquierdo.values = Ordenar(TempIzquierdo.values);
-            }
-            for (int i = NodoSeparar.values.Count-1; i < mitad; i--)
-            {
-                TempDerecho.values.Add(NodoSeparar.values[i]);
-                TempDerecho.values = Ordenar(TempDerecho.values);
-            }
+        //        }
+        //    }
+        //    for (int i = 0; i < mitad; i++)
+        //    {
+        //        TempIzquierdo.values.Add(NodoSeparar.values[i]);
+        //        TempIzquierdo.values = Ordenar(TempIzquierdo.values);
+        //    }
+        //    for (int i = NodoSeparar.values.Count-1; i < mitad; i--)
+        //    {
+        //        TempDerecho.values.Add(NodoSeparar.values[i]);
+        //        TempDerecho.values = Ordenar(TempDerecho.values);
+        //    }
 
 
 
-        }
+        //}
         public List<Bebidas> Ordenar(List<Bebidas> NodoOrdenar)
         {
             var ListaOrdenada=NodoOrdenar.OrderBy(x => x.Nombre).ToList();
@@ -225,12 +253,5 @@ namespace lab3.Estructura
               
             }
         }
-
-
-
-
-
-
-
     }
 }
