@@ -316,7 +316,7 @@ namespace lab3.Estructura
             }
             else
             {
-                throw new Exception("el arbol no tiene datos");
+                throw new Exception("el arbol no existe");
             }
         }
 
