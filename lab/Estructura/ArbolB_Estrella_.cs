@@ -251,10 +251,8 @@ namespace lab3.Estructura
         public List<Bebidas> Registros = new List<Bebidas>();
         public void RetornoInformacion(Nodo RaizResgistro)
         {
-            if (RaizResgistro!=null)
-            {
-
-
+            if (RaizResgistro != null)
+            { 
                 if (RaizResgistro.hijos[0] == null)
                 {
                     foreach (var item in RaizResgistro.values)
@@ -273,8 +271,6 @@ namespace lab3.Estructura
                 {
                     for (int i = 0; i < grado; i++)
                     {
-
-
                         if (RaizResgistro.hijos[i] != null)
                         {
                             RetornoInformacion(RaizResgistro.hijos[i]);
@@ -288,14 +284,9 @@ namespace lab3.Estructura
 
                                 }
                             }
-
-
-
                         }
                         else
                         {
-
-
                             break;
                         }
 
@@ -337,34 +328,46 @@ namespace lab3.Estructura
         List<Nodo> Arbollista = new List<Nodo>();
         public void Recorido(Nodo RaizResgistro)
         {
-            if (RaizResgistro.hijos[0] == null)
+            if (RaizResgistro != null)
             {
-                Arbollista.Add(RaizResgistro);
+                if (RaizResgistro.hijos[0] == null)
+                {
+                    if (RaizResgistro.MaximoRaiz)
+                    {
+                        Arbollista.Add(RaizResgistro);
+
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < grado; i++)
+                    {
+                        if (RaizResgistro.hijos[i] != null)
+                        {
+                            RetornoInformacion(RaizResgistro.hijos[i]);
+
+                            if (i != (grado - 1))
+                            {
+                                if (RaizResgistro.values[i] != null)
+                                {
+
+                                    Arbollista.Add(RaizResgistro.hijos[i]);
+
+                                }
+                            }
+                        }
+                        else
+                        {
+                            break;
+                        }
+
+                    }
+                }
+
             }
             else
             {
-                for (int i = 0; i < grado; i++)
-                {
-                    if (RaizResgistro.hijos[i] != null)
-                    {
-                        RetornoInformacion(RaizResgistro.hijos[i]);
-
-                        if (i != (grado - 1))
-                        {
-                            if (RaizResgistro.values[i] != null)
-                            {
-
-                                Arbollista.Add(RaizResgistro.hijos[i]);
-
-                            }
-                        }
-                    }
-                    else
-                    {
-                        break;
-                    }
-
-                }
+                throw new Exception("el arbol no existe");
             }
         }
 
