@@ -251,54 +251,62 @@ namespace lab3.Estructura
         public List<Bebidas> Registros = new List<Bebidas>();
         public void RetornoInformacion(Nodo RaizResgistro)
         {
-            if (RaizResgistro.hijos[0] == null)
+            if (RaizResgistro!=null)
             {
-                foreach (var item in RaizResgistro.values)
+
+
+                if (RaizResgistro.hijos[0] == null)
                 {
-                    if (item != null)
+                    foreach (var item in RaizResgistro.values)
                     {
-                        Registros.Add(item);
-                    }
-                    else
-                    {
-                        break;
+                        if (item != null)
+                        {
+                            Registros.Add(item);
+                        }
+                        else
+                        {
+                            break;
+                        }
                     }
                 }
+                else
+                {
+                    for (int i = 0; i < grado; i++)
+                    {
+
+
+                        if (RaizResgistro.hijos[i] != null)
+                        {
+                            RetornoInformacion(RaizResgistro.hijos[i]);
+
+                            if (i != (grado - 1))
+                            {
+                                if (RaizResgistro.values[i] != null)
+                                {
+
+                                    Registros.Add(RaizResgistro.values[i]);
+
+                                }
+                            }
+
+
+
+                        }
+                        else
+                        {
+
+
+                            break;
+                        }
+
+                    }
+                }
+
             }
             else
             {
-                for (int i = 0; i < grado; i++)
-                {
-
-
-                    if (RaizResgistro.hijos[i] != null)
-                    {
-                        RetornoInformacion(RaizResgistro.hijos[i]);
-
-                        if (i != (grado - 1))
-                        {
-                            if (RaizResgistro.values[i] != null)
-                            {
-
-                                Registros.Add(RaizResgistro.values[i]);
-
-                            }
-                        }
-
-
-
-                    }
-                    else
-                    {
-
-
-                        break;
-                    }
-
-                }
+                throw new Exception("el arbol no existe");
             }
-
-
         }
 
         public List<Bebidas> IngresarRetorno()
