@@ -130,6 +130,7 @@ namespace lab3.Estructura
                     validar =  1;
                 }
             }
+            Recorido(raiz);
         }
         public void Primeradivision(Nodo PrimerNodo, int num, Bebidas elementoRaiz)
         {
@@ -241,23 +242,11 @@ namespace lab3.Estructura
             return nuevo_elemento;
         }
 
-        // metodo para poder limpiar la raiz y asignarle el de en medio
-        public void Limpiar()
-        {
-            raiz = new Nodo();
-        }
-
-        public void InsertarElemento (Nodo NodoActual)
-        {
-            if (NodoActual.EsHoja)
-            {
-              
-            }
-        }
+    
         #endregion
 
 
-        #region Recorido
+        #region Busqueda
 
         public List<Bebidas> Registros = new List<Bebidas>();
         public void RetornoInformacion(Nodo RaizResgistro)
@@ -325,15 +314,62 @@ namespace lab3.Estructura
 
 
         }
-        #endregion
+   
 
-        #region Busqueda
+       
         public Bebidas Buscar(string _nombre)
         {
             Bebidas bebida = raiz.Busqueda(_nombre);
             return bebida;
         }
         #endregion
+
+
+        #region Recorido
+        List<Nodo> Arbollista = new List<Nodo>();
+        public void Recorido(Nodo RaizResgistro)
+        {
+            if (RaizResgistro.hijos[0] == null)
+            {
+                Arbollista.Add(RaizResgistro);
+            }
+            else
+            {
+                for (int i = 0; i < grado; i++)
+                {
+                    if (RaizResgistro.hijos[i] != null)
+                    {
+                        RetornoInformacion(RaizResgistro.hijos[i]);
+
+                        if (i != (grado - 1))
+                        {
+                            if (RaizResgistro.values[i] != null)
+                            {
+
+                                Arbollista.Add(RaizResgistro.hijos[i]);
+
+                            }
+                        }
+                    }
+                    else
+                    {
+                        break;
+                    }
+
+                }
+            }
+        }
+
+        #endregion
+
+
+        #region Escritura
+
+
+
+        #endregion
+
+
 
     }
 }
