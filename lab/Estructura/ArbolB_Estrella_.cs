@@ -213,9 +213,6 @@ namespace lab3.Estructura
         //        TempDerecho.values.Add(NodoSeparar.values[i]);
         //        TempDerecho.values = Ordenar(TempDerecho.values);
         //    }
-
-
-
         //}
         public List<Bebidas> Ordenar(List<Bebidas> NodoOrdenar)
         {
