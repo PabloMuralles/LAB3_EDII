@@ -12,7 +12,7 @@ namespace lab3
         public Nodo padre { get; set; }
         public Nodo[] hijos { get; set; }
         public List<Bebidas> values { get; set; }
-        public static int grado = 5;
+        public static int grado = 7;
         public Nodo()
         {
             hijos = new Nodo[grado];

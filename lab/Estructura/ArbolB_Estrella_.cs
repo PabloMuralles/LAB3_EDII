@@ -18,10 +18,10 @@ namespace lab3.Estructura
                 return _instance;
             }
         }
-        public static int grado = 5;
+        public static int grado = 7;
         public Nodo raiz = null;
         public int numero = 0;
-        public int ID { get; set; }
+        public int ID = 1;
         public int Proxima { get; set; }
         static int valor_raiz = ((4 * (grado - 1)) / 3);
         public bool LiberarHoja = true;
@@ -46,6 +46,7 @@ namespace lab3.Estructura
             {
                 raiz = new Nodo();
                 raiz.values.Add(DatosInsertar);
+                raiz.id = ID;
             }
             else
             { 
@@ -81,7 +82,7 @@ namespace lab3.Estructura
                             raiz.hijos[num + 1].values.RemoveAt(0);                                   
                           }
                             else
-                            {
+                            {                                
                                 raiz.hijos[num + 1].values.Add(DatosInsertar);
                                 int mitad = (raiz.hijos[num + 1].values.Count) / 2;
                                 var nuevo_elemento = Subir_Elemento(mitad , raiz.hijos[num+1].values);
@@ -132,7 +133,7 @@ namespace lab3.Estructura
                 }
             }
             Recorrido(raiz);
-            EscribirArchivo();
+            EscribirArchivo(num + 4);
             Arbollista.Clear();
         }
         public void Primeradivision(Nodo PrimerNodo, int num, Bebidas elementoRaiz)
@@ -141,7 +142,7 @@ namespace lab3.Estructura
             PrimerNodo.hijos[num] = new Nodo();
             var Izquierdo = Izq(mitad, PrimerNodo.values);
             PrimerNodo.hijos[num].values = Izquierdo;
-            PrimerNodo.hijos[num].id = 2;
+            PrimerNodo.hijos[num].id =  2;
             PrimerNodo.hijos[num].padre = PrimerNodo;
             PrimerNodo.hijos[num + 1] = new Nodo();
             PrimerNodo.hijos[num + 1].id = 3;
@@ -375,12 +376,12 @@ namespace lab3.Estructura
         #region Escritura
 
 
-        public void EscribirArchivo()
+        public void EscribirArchivo(int num)
         {
-            StreamWriter ArchivoArbol = new StreamWriter(@"c:\temp\arbol.txt");
+            StreamWriter ArchivoArbol = new StreamWriter(@"c:\Temp\arbol.txt");
             ArchivoArbol.WriteLine("Grado " + grado);
             ArchivoArbol.WriteLine("Raiz " + raiz.id);
-            ArchivoArbol.WriteLine("Proxima posición Disponible: " + numero);
+            ArchivoArbol.WriteLine("Proxima posición Disponible: " + num);
 
             foreach (var NodoLista in Arbollista)
             {
