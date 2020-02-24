@@ -256,46 +256,59 @@ namespace lab3.Estructura
         public void RetornoInformacion(Nodo RaizResgistro)
         {
             if (RaizResgistro != null)
-            { 
-                if (RaizResgistro.hijos[0] == null)
+            {
+                #region prueba
+                //if (RaizResgistro.hijos[0] == null)
+                //{
+                //    foreach (var item in RaizResgistro.values)
+                //    {
+                //        if (item != null)
+                //        {
+                //            Registros.Add(item);
+                //        }
+                //        else
+                //        {
+                //            break;
+                //        }
+                //    }
+                //}
+                //else
+                //{
+                //    for (int i = 0; i < grado; i++)
+                //    {
+                //        if (RaizResgistro.hijos[i] != null)
+                //        {
+                //            RetornoInformacion(RaizResgistro.hijos[i]);
+
+                //            if (i != (grado - 1))
+                //            {
+                //                if (RaizResgistro.values[i] != null)
+                //                {
+
+                //                    Registros.Add(RaizResgistro.values[i]);
+
+                //                }
+                //            }
+                //        }
+                //        else
+                //        {
+                //            break;
+                //        }
+
+                //    }
+                //}
+                #endregion
+
+                RecorridoRegistros(raiz);
+                foreach (var Nods in ArbolListaRegistros)
                 {
-                    foreach (var item in RaizResgistro.values)
+                    foreach (var bebidas in Nods.values)
                     {
-                        if (item != null)
-                        {
-                            Registros.Add(item);
-                        }
-                        else
-                        {
-                            break;
-                        }
+                        Registros.Add(bebidas);
                     }
                 }
-                else
-                {
-                    for (int i = 0; i < grado; i++)
-                    {
-                        if (RaizResgistro.hijos[i] != null)
-                        {
-                            RetornoInformacion(RaizResgistro.hijos[i]);
+                ArbolListaRegistros.Clear();
 
-                            if (i != (grado - 1))
-                            {
-                                if (RaizResgistro.values[i] != null)
-                                {
-
-                                    Registros.Add(RaizResgistro.values[i]);
-
-                                }
-                            }
-                        }
-                        else
-                        {
-                            break;
-                        }
-
-                    }
-                }
 
             }
             else
@@ -439,6 +452,53 @@ namespace lab3.Estructura
         }
         #endregion
 
+        #region Recorrido2
+
+        List<Nodo> ArbolListaRegistros = new List<Nodo>();
+
+
+        public void RecorridoRegistros(Nodo RaizResgistros)
+        {
+            if (RaizResgistros != null)
+            {
+
+
+                if (ArbolListaRegistros.Contains(RaizResgistros) == false)
+                {
+
+                    ArbolListaRegistros.Add(RaizResgistros);
+                }
+
+                if (RaizResgistros.hijos[0] != null)
+                {
+                    for (int i = 0; i < grado; i++)
+                    {
+                        if (RaizResgistros.hijos[i] != null)
+                        {
+                            ArbolListaRegistros.Add(RaizResgistros.hijos[i]);
+                            RecorridoRegistros(RaizResgistros.hijos[i]);
+                        }
+                        else
+                        {
+                            break;
+                        }
+
+                    }
+                }
+
+            }
+            else
+            {
+                throw new Exception("el arbol no existe");
+            }
+        }
+
+
+
+
+
+
+        #endregion
 
 
     }
