@@ -133,6 +133,7 @@ namespace lab3.Estructura
             }
             Recorrido(raiz);
             EscribirArchivo();
+            Arbollista.Clear();
         }
         public void Primeradivision(Nodo PrimerNodo, int num, Bebidas elementoRaiz)
         {
@@ -328,66 +329,28 @@ namespace lab3.Estructura
 
         #region Recorido
         List<Nodo> Arbollista = new List<Nodo>();
-        //public void Recorido(Nodo RaizResgistro)
-        //{
-             
-        //        if (RaizResgistro.hijos[0]!=null)
-        //        {
-        //            Recorido(RaizResgistro.hijos[0]);
-        //            for (int i = 0; i < RaizResgistro.hijos.Length; i++)
-        //            {
-        //                if (RaizResgistro.hijos[i]!= null)
-        //                {
 
-        //                    Arbollista.Add(RaizResgistro.hijos[i]);
-        //                    Recorido(RaizResgistro.hijos[i]);
-
-        //                }
-        //                else
-        //                {
-        //                break;
-        //                }
-        //            }
-
-        //        }
-        //        else
-        //        {
-        //            if (Arbollista.Contains(RaizResgistro) == false)
-        //            {
-        //                Arbollista.Add(RaizResgistro);
-        //            }
-        //        }
-            
-        //}
 
         public void Recorrido(Nodo RaizResgistros)
         {
             if (RaizResgistros != null)
             {
-                if (RaizResgistros.hijos[0] == null)
-                {
-                    if (Arbollista.Contains(RaizResgistros)==false)
+             
+                
+                    if (Arbollista.Contains(RaizResgistros) == false)
                     {
+
                         Arbollista.Add(RaizResgistros);
                     }
-                }
-                else
+                
+               if(RaizResgistros.hijos[0]!=null)
                 {
                     for (int i = 0; i < grado; i++)
                     {
                         if (RaizResgistros.hijos[i] != null)
                         {
+                            Arbollista.Add(RaizResgistros.hijos[i]);
                             Recorrido(RaizResgistros.hijos[i]);
-
-                            if (i != (grado - 1))
-                            {
-                                if (RaizResgistros.values[i] != null)
-                                {
-
-                                    Arbollista.Add(RaizResgistros);
-
-                                }
-                            }
                         }
                         else
                         {
@@ -404,6 +367,8 @@ namespace lab3.Estructura
             }
         }
 
+
+
         #endregion
 
 
@@ -412,23 +377,24 @@ namespace lab3.Estructura
 
         public void EscribirArchivo()
         {
-            StreamWriter writer = new StreamWriter(@"c:\temp\arbol.txt");
-            writer.WriteLine("Orden " + grado);
-            writer.WriteLine("Raiz " + raiz.id);
-           
-            foreach (var nodo in Arbollista)
+            StreamWriter ArchivoArbol = new StreamWriter(@"c:\temp\arbol.txt");
+            ArchivoArbol.WriteLine("Grado " + grado);
+            ArchivoArbol.WriteLine("Raiz " + raiz.id);
+            ArchivoArbol.WriteLine("Proxima posición Disponible: " + numero);
+
+            foreach (var NodoLista in Arbollista)
             {
-                if (nodo.padre == null)
+                if (NodoLista.padre == null)
                 {
-                    writer.Write(nodo.id + "|0|");
+                    ArchivoArbol.Write(NodoLista.id + "|0|");
                     
                 }
                 else
                 {
-                    writer.Write(nodo.id + "|" + nodo.padre.id + "|");
+                    ArchivoArbol.Write(NodoLista.id + "|" + NodoLista.padre.id + "|");
                     
                 }
-                if (nodo.hijos[0]==null)
+                if (NodoLista.hijos[0]==null)
                 {
                     string hijos = string.Empty;
                     for (int i = 0; i < grado; i++)
@@ -436,37 +402,38 @@ namespace lab3.Estructura
                         hijos += "0|";
                     
                     }
-                    writer.Write(hijos);
+                    ArchivoArbol.Write(hijos);
                     
                 }
                 else
                 {
-                    foreach (var nodosHijos in nodo.hijos)
+                    foreach (var nodosHijos in NodoLista.hijos)
                     {
-                        writer.Write(nodosHijos.id + "|");
+                        if (nodosHijos!=null)
+                        {
+                            ArchivoArbol.Write(nodosHijos.id + "|");
+                        }
+                        else
+                        {
+                            ArchivoArbol.Write( "0|");
+                        }
+                        
                       
                     }
                 }
                 
-                foreach (var valores in nodo.values)
+                foreach (var valores in NodoLista.values)
                 {
-                   
-                    
-                    writer.Write(valores.Nombre + "|");
-                    writer.Write(valores.Sabor + "|");
-                    writer.Write(valores.Precio + "|");
-                    writer.Write(valores.Volumen + "|");
-                    writer.Write(valores.Casa_Productora + "|");
-                   
-
-
-
-
-
-
+                    ArchivoArbol.Write(valores.Nombre + "|");
+                    ArchivoArbol.Write(valores.Sabor + "|");
+                    ArchivoArbol.Write(valores.Precio + "|");
+                    ArchivoArbol.Write(valores.Volumen + "|");
+                    ArchivoArbol.Write(valores.Casa_Productora + "|");
                 }
+                  ArchivoArbol.Write("\n");
             }
-            writer.Close();
+           
+            ArchivoArbol.Close();
 
         }
         #endregion
