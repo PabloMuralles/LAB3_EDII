@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace lab3.Estructura
@@ -130,7 +131,9 @@ namespace lab3.Estructura
                     validar =  1;
                 }
             }
-            Recorido(raiz);
+            Recorrido(raiz);
+            EscribirArchivo();
+            Arbollista.Clear();
         }
         public void Primeradivision(Nodo PrimerNodo, int num, Bebidas elementoRaiz)
         {
@@ -326,35 +329,28 @@ namespace lab3.Estructura
 
         #region Recorido
         List<Nodo> Arbollista = new List<Nodo>();
-        public void Recorido(Nodo RaizResgistro)
-        {
-            if (RaizResgistro != null)
-            {
-                if (RaizResgistro.hijos[0] == null)
-                {
-                    if (RaizResgistro.MaximoRaiz)
-                    {
-                        Arbollista.Add(RaizResgistro);
 
+
+        public void Recorrido(Nodo RaizResgistros)
+        {
+            if (RaizResgistros != null)
+            {
+             
+                
+                    if (Arbollista.Contains(RaizResgistros) == false)
+                    {
+
+                        Arbollista.Add(RaizResgistros);
                     }
-                }
-                else
+                
+               if(RaizResgistros.hijos[0]!=null)
                 {
                     for (int i = 0; i < grado; i++)
                     {
-                        if (RaizResgistro.hijos[i] != null)
+                        if (RaizResgistros.hijos[i] != null)
                         {
-                            RetornoInformacion(RaizResgistro.hijos[i]);
-
-                            if (i != (grado - 1))
-                            {
-                                if (RaizResgistro.values[i] != null)
-                                {
-
-                                    Arbollista.Add(RaizResgistro.hijos[i]);
-
-                                }
-                            }
+                            Arbollista.Add(RaizResgistros.hijos[i]);
+                            Recorrido(RaizResgistros.hijos[i]);
                         }
                         else
                         {
@@ -371,13 +367,75 @@ namespace lab3.Estructura
             }
         }
 
+
+
         #endregion
 
 
         #region Escritura
 
 
+        public void EscribirArchivo()
+        {
+            StreamWriter ArchivoArbol = new StreamWriter(@"c:\temp\arbol.txt");
+            ArchivoArbol.WriteLine("Grado " + grado);
+            ArchivoArbol.WriteLine("Raiz " + raiz.id);
+            ArchivoArbol.WriteLine("Proxima posición Disponible: " + numero);
 
+            foreach (var NodoLista in Arbollista)
+            {
+                if (NodoLista.padre == null)
+                {
+                    ArchivoArbol.Write(NodoLista.id + "|0|");
+                    
+                }
+                else
+                {
+                    ArchivoArbol.Write(NodoLista.id + "|" + NodoLista.padre.id + "|");
+                    
+                }
+                if (NodoLista.hijos[0]==null)
+                {
+                    string hijos = string.Empty;
+                    for (int i = 0; i < grado; i++)
+                    {
+                        hijos += "0|";
+                    
+                    }
+                    ArchivoArbol.Write(hijos);
+                    
+                }
+                else
+                {
+                    foreach (var nodosHijos in NodoLista.hijos)
+                    {
+                        if (nodosHijos!=null)
+                        {
+                            ArchivoArbol.Write(nodosHijos.id + "|");
+                        }
+                        else
+                        {
+                            ArchivoArbol.Write( "0|");
+                        }
+                        
+                      
+                    }
+                }
+                
+                foreach (var valores in NodoLista.values)
+                {
+                    ArchivoArbol.Write(valores.Nombre + "|");
+                    ArchivoArbol.Write(valores.Sabor + "|");
+                    ArchivoArbol.Write(valores.Precio + "|");
+                    ArchivoArbol.Write(valores.Volumen + "|");
+                    ArchivoArbol.Write(valores.Casa_Productora + "|");
+                }
+                  ArchivoArbol.Write("\n");
+            }
+           
+            ArchivoArbol.Close();
+
+        }
         #endregion
 
 
